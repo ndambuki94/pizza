@@ -45,3 +45,63 @@ function Pizza(style, size) {
           var toppingChoice = $(this).val();
           newPizza.toppings.push(toppingChoice);
         });
+        newPizza.cost();
+        total += newPizza.price;
+    
+        $(".cartTotal").text(total);
+        $(".cartWell").show();;
+        $("#cartHeader").show();
+        $("ol#cart").append("<li><span class='cartItem'>" + newPizza.size + " " + newPizza.style + " Pizza" + "</span></li>");
+    
+        $(".cartItem").last().click(function() {
+          $("#show-pizza").show();
+          $("#pizzaListName").text(newPizza.size + " " + newPizza.style + " Pizza");
+          $(".size").text(newPizza.size);
+          $(".style").text(newPizza.style);
+          $(".toppings").text(newPizza.toppingsList());
+          $(".cost").text(newPizza.price);
+        });
+        $("#pizzaForm")[0].reset();
+      });
+    
+      $("button#submitCart").click(function() {
+        $(".pizzaMaker").hide();
+        $("button#submitCart").hide();
+        $(".choiceWell"). show();
+      });
+    
+      $("button#pickup").click(function() {
+        $(".choiceWell").hide();
+        $(".pickupWell").show();
+      });
+    
+      $("button#delivery").click(function() {
+        total += 7;
+        $(".cartTotal").text(total);
+        $(".choiceWell").hide();
+        $(".deliveryWell").show();
+      });
+    
+      $("button#submitPickupForm").click(function() {
+        var userName = $("input#pickupName").val();
+        $(".nameInput").text(userName);
+        $("form#pickupForm").hide();
+        $("#pickupEnd").show()
+      });
+    
+      $("button#submitDeliveryForm").click(function() {
+        var userName = $("input#deliveryName").val();
+        var address = $("input#address").val();
+        var city = $("input#city").val();
+        var state = $("input#state").val();
+        $(".nameInput").text(userName);
+        $(".addressInput").text(address + ", " + city + " " + state);
+        $("form#deliveryForm").hide();
+        $("#deliveryEnd").show();
+      });
+    
+      $("button.reset").click(function() {
+        location.reload();
+      });
+    });
+    
